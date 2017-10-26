@@ -1,34 +1,30 @@
-import org.openqa.selenium.support.ui.WebDriverWait;
+package andrey.test.task;
+
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import pages.*;
+import andrey.test.task.pages.*;
 
 
 
 public class test extends BaseTest {
 
-    @BeforeTest
-    public void Init(){
-        super.Init();
-    }
-
     @Test
     public void TinkoffPage() throws InterruptedException {
+        WebDriver driver = getDriver();
         //1.Переходом по адресу https://www.tinkoff.ru/ загрузить стартовую страницу Tinkoff Bank.
-        HomePage homePage = new HomePage(super.driver);
+        HomePage homePage = new HomePage(driver);
         homePage.HomePageOpen();
 
         //2.Из верхнего меню, нажатием на пункт меню “Платежи“, перейти на страницу “Платежи“.
         homePage.ElementClick(homePage.Payments);
 
         //3.В списке категорий платежей, нажатием на пункт “Коммунальные платежи“, перейти на  страницу выбора поставщиков услуг.
-        PaymentsPage paymentsPage = new PaymentsPage(super.driver);
+        PaymentsPage paymentsPage = new PaymentsPage(driver);
         paymentsPage.ElementClick(paymentsPage.CommunalPayments);
 
         //4.Убедиться, что текущий регион – “г. Москва” (в противном случае выбрать регион “г. Москва” из списка регионов).
-        CommunalPaymentsPage communalPaymentsPage = new CommunalPaymentsPage(super.driver);
+        CommunalPaymentsPage communalPaymentsPage = new CommunalPaymentsPage(driver);
         communalPaymentsPage.CommunalPaymentsInCity("Москве",communalPaymentsPage.MoscowPayments);
 
         //5.Со страницы выбора поставщиков услуг, выбрать 1-ый из списка (Должен быть “ЖКУ-Москва”).
@@ -38,7 +34,7 @@ public class test extends BaseTest {
         communalPaymentsPage.ElementClick(communalPaymentsPage.ZKY_Moscow);
 
         //6.На странице оплаты, перейти на вкладку “Оплатить ЖКУ в Москве“.
-        ZKY_MoscowPage zky_moscowPage = new ZKY_MoscowPage(super.driver);
+        ZKY_MoscowPage zky_moscowPage = new ZKY_MoscowPage(driver);
         zky_moscowPage.ElementClick(zky_moscowPage.PayZkyInMoscow);
 
         //7.Выполнить проверки на невалидные значения для обязательных полей: проверить все текстовые сообщения об ошибке (и их содержимое),
@@ -80,8 +76,4 @@ public class test extends BaseTest {
         paymentsPage.NotIncluderInTheList();
     }
 
-    @AfterTest
-    public void Dispose(){
-        super.Dispose();
-  }
 }
