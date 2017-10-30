@@ -14,24 +14,24 @@ public class test extends BaseTest {
         WebDriver driver = getDriver();
         //1.Переходом по адресу https://www.tinkoff.ru/ загрузить стартовую страницу Tinkoff Bank.
         HomePage homePage = new HomePage(driver);
-        homePage.HomePageOpen();
+        homePage.homePageOpen();
 
         //2.Из верхнего меню, нажатием на пункт меню “Платежи“, перейти на страницу “Платежи“.
-        homePage.ElementClick(homePage.Payments);
+        homePage.elementClick(homePage.getPayments());
 
         //3.В списке категорий платежей, нажатием на пункт “Коммунальные платежи“, перейти на  страницу выбора поставщиков услуг.
         PaymentsPage paymentsPage = new PaymentsPage(driver);
-        paymentsPage.ElementClick(paymentsPage.CommunalPayments);
+        paymentsPage.elementClick(paymentsPage.getCommunalPayments());
 
         //4.Убедиться, что текущий регион – “г. Москва” (в противном случае выбрать регион “г. Москва” из списка регионов).
         CommunalPaymentsPage communalPaymentsPage = new CommunalPaymentsPage(driver);
-        communalPaymentsPage.CommunalPaymentsInCity("Москве",communalPaymentsPage.MoscowPayments);
+        communalPaymentsPage.communalPaymentsInCity("Москве",communalPaymentsPage.getMoscowPayments());
 
         //5.Со страницы выбора поставщиков услуг, выбрать 1-ый из списка (Должен быть “ЖКУ-Москва”).
         // Сохранить его наименование (далее “искомый”) и нажатием на соответствующий элемент перейти на страницу оплаты “ЖКУ-Москва
-        communalPaymentsPage.ElementWait(communalPaymentsPage.ZKY_Moscow);
-        String ZKY_Name = driver.findElement(communalPaymentsPage.ZKY_Moscow).getText();
-        communalPaymentsPage.ElementClick(communalPaymentsPage.ZKY_Moscow);
+        communalPaymentsPage.elementWait(communalPaymentsPage.getZkyMoscow());
+        String ZKY_Name = driver.findElement(communalPaymentsPage.getZkyMoscow()).getText();
+        communalPaymentsPage.elementClick(communalPaymentsPage.getZkyMoscow());
 
         //6.На странице оплаты, перейти на вкладку “Оплатить ЖКУ в Москве“.
         ZKY_MoscowPage zky_moscowPage = new ZKY_MoscowPage(driver);
@@ -56,24 +56,24 @@ public class test extends BaseTest {
         zky_moscowPage.ElementClick(zky_moscowPage.Payments);
 
         //9.В строке быстрого поиска поставщика услуг ввести наименование искомого (ранее сохраненного).
-        paymentsPage.InputTextInTheField(paymentsPage.FieldForInput,ZKY_Name);
+        paymentsPage.inputTextInTheField(paymentsPage.getFieldForInput(),ZKY_Name);
 
         //10.Убедиться, что в списке предложенных провайдеров искомый поставщик первый.
-        paymentsPage.CompareDropdown("ЖКУ-Москва");
+        paymentsPage.compareDropdown("ЖКУ-Москва");
 
         //11.Нажатием на элемент, соответствующий искомому, перейти на страницу “Оплатить ЖКУ в Москве“. Убедиться, что загруженная страница та же, что и страница, загруженная в результате шага (5).
-        paymentsPage.ElementClick(paymentsPage.FirstElementInDropdown);
+        paymentsPage.elementClick(paymentsPage.getFirstElementInDropdown());
 
         //12.Выполнить шаги (2) и (3).
-        homePage.ElementClick(homePage.Payments);
-        paymentsPage.ElementClick(paymentsPage.CommunalPayments);
+        homePage.elementClick(homePage.getPayments());
+        paymentsPage.elementClick(paymentsPage.getCommunalPayments());
 
         //13.В списке регионов выбрать “г. Санкт-Петербург”.
-        communalPaymentsPage.CommunalPaymentsInCity("Санкт-Петербурге",communalPaymentsPage.SpbPayments);
+        communalPaymentsPage.communalPaymentsInCity("Санкт-Петербурге",communalPaymentsPage.getSpbPayments());
 
         //14.Убедится, что в списке поставщиков на странице выбора поставщиков услуг отсутствует искомый
-        paymentsPage.InputTextInTheField(paymentsPage.FieldForInput,ZKY_Name);
-        paymentsPage.NotIncluderInTheList();
+        paymentsPage.inputTextInTheField(paymentsPage.getFieldForInput(),ZKY_Name);
+        paymentsPage.notIncluderInTheList();
     }
 
 }

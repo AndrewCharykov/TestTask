@@ -5,27 +5,58 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * Домашняя страница.
+ */
 public class HomePage {
 
+    /**
+     * Вебдрайвер.
+     */
     private WebDriver driver;
+    /**
+     * Вейтер.
+     */
     private WebDriverWait wait;
+    /**
+     * Локатор платежей.
+     */
+    private By payments = By.xpath("//span[text()='Платежи'][@class='_3Qu__']");
 
-    public By Payments =By.xpath("//span[text()='Платежи'][@class='_3Qu__']");
+    /**
+     * Возвращает локатор.
+     * @return локатор.
+     */
+    public By getPayments() {
+        return payments;
+    }
 
-    private String HomePageURL ="https://www.tinkoff.ru/";
+    /**
+     * URL домашней страницы.
+     */
+    private String homePageURL = "https://www.tinkoff.ru/";
 
+    /**
+     * Инициализация  драйвера.
+     * @param driver драйвер.
+     */
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void HomePageOpen() {
-        driver.get(HomePageURL);
+    /**
+     * Открывает домашнюю страницу.
+     */
+    public void homePageOpen() {
+        driver.get(homePageURL);
     }
 
-    public void ElementClick(By Element){
+    /**
+     * нажимаем на элемент.
+     * @param element локатор.
+     */
+    public void elementClick(By element) {
         wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(Element)).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(element)).click();
     }
-
-
 }

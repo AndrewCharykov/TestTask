@@ -6,37 +6,100 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * Страница коммунальных платежей.
+ */
 public class CommunalPaymentsPage {
+    /**
+     * Вебдрайвер.
+     */
     private WebDriver driver;
+    /**
+     * Вейтер.
+     */
     private WebDriverWait wait;
+    /**
+     * Коммунальные платежи - город.
+     */
+    private By communalPaymentsDistrict =
+            By.cssSelector(".payment-page__title_inner");
+    /**
+     * ЖКУ москва.
+     */
+    private By zkyMoscow = By.xpath("//span[text()='ЖКУ-Москва']");
 
-    public By CommunalPaymentsDistrict = By.cssSelector(".payment-page__title_inner");
-    public By ZKY_Moscow = By.xpath("//span[text()='ЖКУ-Москва']");
-    public By MoscowPayments =By.xpath("//span[text()='г. Москва']");
-    public By SpbPayments =By.xpath("//span[text()='г. Санкт-Петербург']");
+    /**
+     *  Возвращает локатор на ЖКУ Москва.
+     * @return локатор.
+     */
+    public By getZkyMoscow() {
+        return zkyMoscow;
+    }
+    /**
+     * Локатор города Москва в выборе городов.
+     */
+    private By moscowPayments = By.xpath("//span[text()='г. Москва']");
+
+    /**
+     * Возвращает локатор г Москва.
+     * @return локатор.
+     */
+    public By getMoscowPayments() {
+        return moscowPayments;
+    }
+    /**
+     * Локатор города СПб в выборе городов.
+     */
+    private By spbPayments = By.xpath("//span[text()='г. Санкт-Петербург']");
+
+    /**
+     * Возвращает локатор гСпб.
+     * @return локатор.
+     */
+    public By getSpbPayments() {
+        return spbPayments;
+    }
+
+    /**
+     * Инициализация драйвера.
+     * @param driver передаем двайвер.
+     */
     public CommunalPaymentsPage(WebDriver driver) {
         this.driver = driver;
     }
 
-
-    public void CommunalPaymentsInCity (String s,By Element){
+    /**
+     *  Проверяте в каком городе.
+     * @param s  стринга город.
+     * @param element локатор элемента.
+     */
+    public void communalPaymentsInCity(String s, By element) {
         wait = new WebDriverWait(driver, 60);
-        WebElement DistrictNow = wait.until(ExpectedConditions.visibilityOfElementLocated(CommunalPaymentsDistrict));
+        WebElement districtNow =
+                wait.until(ExpectedConditions.visibilityOfElementLocated(communalPaymentsDistrict));
 
-        if(!DistrictNow.getText().equals(s)){
-            ElementClick(CommunalPaymentsDistrict);
+        if (!districtNow.getText().equals(s)) {
+            elementClick(communalPaymentsDistrict);
             wait = new WebDriverWait(driver, 60);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(Element)).click();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(element)).click();
         }
     }
 
-    public void ElementClick(By element){
+    /**
+     * Нажимает на элемент.
+     * @param element локатор.
+     */
+    public void elementClick(By element) {
         wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(element)).click();
     }
 
-    public void ElementWait(By Element){
+    /**
+     * Ожидание элемента.
+     * @param element локатор элемента.
+     */
+    public void elementWait(By element) {
         wait = new WebDriverWait(driver, 60);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(Element));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 }
