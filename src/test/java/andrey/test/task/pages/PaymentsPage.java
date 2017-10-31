@@ -83,7 +83,7 @@ public class PaymentsPage  {
      *  Сравнивает дропдаун.
      * @param s1 стринга.
      */
-    public void compareDropdown (String s1) {
+    public void compareDropdown(String s1) {
         wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='_2vlxq']")));
         List<WebElement> elements = driver.findElements(By.xpath("//div[@class='_2vlxq']"));
