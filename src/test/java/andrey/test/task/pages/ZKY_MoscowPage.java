@@ -14,7 +14,7 @@ public class ZKY_MoscowPage {
     /**
      * Время ожидания.
      */
-    final int Time = 60;
+    final int timeWaiting = 60;
     /**
      * Вебдрайвер.
      */
@@ -159,7 +159,7 @@ public class ZKY_MoscowPage {
      * @param element локатор элемента.
      */
     public void elementClick(By element) {
-        wait = new WebDriverWait(driver, Time);
+        wait = new WebDriverWait(driver, timeWaiting);
         wait.until(ExpectedConditions.visibilityOfElementLocated(element)).click();
     }
 
@@ -169,7 +169,7 @@ public class ZKY_MoscowPage {
      * @return текст ошибки.
      */
     public String textError(By element) {
-        wait = new WebDriverWait(driver, Time);
+        wait = new WebDriverWait(driver, timeWaiting);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(element)).getText();
     }
 
@@ -179,7 +179,7 @@ public class ZKY_MoscowPage {
      * @param s то, что нужно ввести.
      */
     public void inputText(By element, String s) {
-        wait = new WebDriverWait(driver, Time);
+        wait = new WebDriverWait(driver, timeWaiting);
         WebElement thisElement = wait.until(ExpectedConditions.visibilityOfElementLocated(element));
         thisElement.sendKeys(s);
         thisElement.sendKeys(Keys.TAB);

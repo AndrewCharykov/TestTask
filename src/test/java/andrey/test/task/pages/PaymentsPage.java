@@ -15,7 +15,7 @@ public class PaymentsPage  {
     /**
      * Время ожидания.
       */
-    final int Time = 60;
+    final int timeWaiting = 60;
     /**
      * Вебдрайвер.
      */
@@ -78,7 +78,7 @@ public class PaymentsPage  {
      * @param s текст.
      */
     public void inputTextInTheField(By element, String s) {
-        wait = new WebDriverWait(driver, Time);
+        wait = new WebDriverWait(driver, timeWaiting);
         wait.until(ExpectedConditions.visibilityOfElementLocated(element)).click();
         driver.findElement(element).sendKeys(s);
     }
@@ -88,7 +88,7 @@ public class PaymentsPage  {
      * @param s1 стринга.
      */
     public void compareDropdown(String s1) {
-        wait = new WebDriverWait(driver, Time);
+        wait = new WebDriverWait(driver, timeWaiting);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='_2vlxq']")));
         List<WebElement> elements = driver.findElements(By.xpath("//div[@class='_2vlxq']"));
         String s = elements.get(0).getText();
@@ -103,7 +103,7 @@ public class PaymentsPage  {
      * @param element локатор элемента.
      */
     public void elementClick(By element) {
-        wait = new WebDriverWait(driver, Time);
+        wait = new WebDriverWait(driver, timeWaiting);
         wait.until(ExpectedConditions.visibilityOfElementLocated(element)).click();
     }
 
@@ -111,7 +111,7 @@ public class PaymentsPage  {
      * Не входит в список.
      */
     public void notIncluderInTheList() {
-        wait = new WebDriverWait(driver, Time);
+        wait = new WebDriverWait(driver, timeWaiting);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='_200uJ']")));
         List<WebElement> elements = driver.findElements(By.xpath("//div[@class='_200uJ']"));
         String s = elements.get(0).getText();

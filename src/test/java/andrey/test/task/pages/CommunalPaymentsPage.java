@@ -13,7 +13,7 @@ public class CommunalPaymentsPage {
     /**
      * Время ожидания.
      */
-    final int Time = 60;
+    final int timeWaiting = 60;
     /**
      * Вебдрайвер.
      */
@@ -78,13 +78,13 @@ public class CommunalPaymentsPage {
      * @param element локатор элемента.
      */
     public void communalPaymentsInCity(String s, By element) {
-        wait = new WebDriverWait(driver, Time);
+        wait = new WebDriverWait(driver, timeWaiting);
         WebElement districtNow =
                 wait.until(ExpectedConditions.visibilityOfElementLocated(communalPaymentsDistrict));
 
         if (!districtNow.getText().equals(s)) {
             elementClick(communalPaymentsDistrict);
-            wait = new WebDriverWait(driver, Time);
+            wait = new WebDriverWait(driver, timeWaiting);
             wait.until(ExpectedConditions.visibilityOfElementLocated(element)).click();
         }
     }
@@ -94,7 +94,7 @@ public class CommunalPaymentsPage {
      * @param element локатор.
      */
     public void elementClick(By element) {
-        wait = new WebDriverWait(driver, Time);
+        wait = new WebDriverWait(driver, timeWaiting);
         wait.until(ExpectedConditions.visibilityOfElementLocated(element)).click();
     }
 
@@ -103,7 +103,7 @@ public class CommunalPaymentsPage {
      * @param element локатор элемента.
      */
     public void elementWait(By element) {
-        wait = new WebDriverWait(driver, Time);
+        wait = new WebDriverWait(driver, timeWaiting);
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 }

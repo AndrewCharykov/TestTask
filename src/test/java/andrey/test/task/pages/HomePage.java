@@ -12,7 +12,7 @@ public class HomePage {
     /**
      * Время ожидания.
      */
-    final int Time = 60;
+    final int timeWaiting = 60;
 
     /**
      * Вебдрайвер.
@@ -60,7 +60,7 @@ public class HomePage {
      * @param element локатор.
      */
     public void elementClick(By element) {
-        wait = new WebDriverWait(driver, Time);
+        wait = new WebDriverWait(driver, timeWaiting);
         wait.until(ExpectedConditions.visibilityOfElementLocated(element)).click();
     }
 }

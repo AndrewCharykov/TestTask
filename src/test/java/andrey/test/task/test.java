@@ -82,7 +82,7 @@ public class test extends BaseTest {
                 zky_moscowPage.textError(zky_moscowPage.getErrorMessageSum()));
 
         zky_moscowPage.inputText(zky_moscowPage.getFieldSum(), "15001");
-        
+
         Assert.assertEquals("Максимальная сумма перевода - 15 000 \u20BD",
                 zky_moscowPage.textError(zky_moscowPage.getErrorMessageSum()));
 
