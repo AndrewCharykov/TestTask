@@ -11,6 +11,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class CommunalPaymentsPage {
     /**
+     * Время ожидания.
+     */
+    final int Time = 60;
+    /**
      * Вебдрайвер.
      */
     private WebDriver driver;
@@ -74,13 +78,13 @@ public class CommunalPaymentsPage {
      * @param element локатор элемента.
      */
     public void communalPaymentsInCity(String s, By element) {
-        wait = new WebDriverWait(driver, 60);
+        wait = new WebDriverWait(driver, Time);
         WebElement districtNow =
                 wait.until(ExpectedConditions.visibilityOfElementLocated(communalPaymentsDistrict));
 
         if (!districtNow.getText().equals(s)) {
             elementClick(communalPaymentsDistrict);
-            wait = new WebDriverWait(driver, 60);
+            wait = new WebDriverWait(driver, Time);
             wait.until(ExpectedConditions.visibilityOfElementLocated(element)).click();
         }
     }
@@ -90,7 +94,7 @@ public class CommunalPaymentsPage {
      * @param element локатор.
      */
     public void elementClick(By element) {
-        wait = new WebDriverWait(driver, 60);
+        wait = new WebDriverWait(driver, Time);
         wait.until(ExpectedConditions.visibilityOfElementLocated(element)).click();
     }
 
@@ -99,7 +103,7 @@ public class CommunalPaymentsPage {
      * @param element локатор элемента.
      */
     public void elementWait(By element) {
-        wait = new WebDriverWait(driver, 60);
+        wait = new WebDriverWait(driver, Time);
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 }

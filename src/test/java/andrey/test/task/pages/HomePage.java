@@ -9,6 +9,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * Домашняя страница.
  */
 public class HomePage {
+    /**
+     * Время ожидания.
+     */
+    final int Time = 60;
 
     /**
      * Вебдрайвер.
@@ -56,7 +60,7 @@ public class HomePage {
      * @param element локатор.
      */
     public void elementClick(By element) {
-        wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(driver, Time);
         wait.until(ExpectedConditions.visibilityOfElementLocated(element)).click();
     }
 }

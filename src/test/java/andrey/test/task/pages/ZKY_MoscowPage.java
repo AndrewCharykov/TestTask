@@ -7,37 +7,181 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ *
+ */
 public class ZKY_MoscowPage {
+    /**
+     * Время ожидания.
+     */
+    final int Time = 60;
+    /**
+     * Вебдрайвер.
+     */
     private WebDriver driver;
+    /**
+     * Вейтер.
+     */
     private WebDriverWait wait;
+    /**
+     * Локатор опталить жку в Москве.
+     */
+    private By payZkyInMoscow = By.xpath("//span[text()='Оплатить ЖКУ в Москве']");
 
-    public By PayZkyInMoscow = By.xpath("//span[text()='Оплатить ЖКУ в Москве']");
-    public By Payments = By.cssSelector("[data-reactid='97']");
-    public By buttonPayZkyInMoscow =By.xpath("//h2[text()='Оплатить ЖКУ в Москве']");
-    public By FieldPayerCode = By.xpath("id('payerCode')");
-    public By FieldProviderPeriod = By.xpath("//input[@name='provider-period']");
-    public By FieldSum = By.xpath("//div[1]/div[1]/div[1]/div[1]/label[1]/div[1]/input[1]");
-    public By ErrorMessageCodePayment = By.xpath("//form[1]/div[1]/div[1]/div[2]");
-    public By ErrorMessageDate = By.xpath("//form[1]/div[2]/div[1]/div[2]");
-    public By ErrorMessageSum = By.xpath("//div[1]/div[1]/div[1]/div[1]/div[1]/div[2]");
+    /**
+     * Возвращает локатор"Оплатить ЖКУ Москве".
+     * @return локатор.
+     */
+    public By getPayZkyInMoscow() {
+        return payZkyInMoscow;
+    }
 
+    /**
+     *  Платежи.
+     */
+    private By payments = By.cssSelector("[data-reactid='97']");
+
+    /**
+     * Возвращает локатор платежей.
+     * @return локатор.
+     */
+    public By getPayments() {
+        return payments;
+    }
+
+    /**
+     * локатор кнопки.
+     */
+    private By buttonPayZkyInMoscow = By.xpath("//h2[text()='Оплатить ЖКУ в Москве']");
+
+    /**
+     * Возвращает локатор.
+     * @return локатор.
+     */
+    public By getButtonPayZkyInMoscow() {
+        return buttonPayZkyInMoscow;
+    }
+
+    /**
+     * локатор код плательщика.
+     */
+    private By fieldPayerCode =
+            By.xpath("id('payerCode')");
+
+    /**
+     *возвращает локатор.
+     * @return локатор.
+     */
+    public By getFieldPayerCode() {
+        return fieldPayerCode;
+    }
+
+    /**
+     * Локатор период.
+     */
+    private By fieldProviderPeriod =
+            By.xpath("//input[@name='provider-period']");
+
+    /**
+     * возвращает локатор.
+     * @return локатор.
+     */
+    public By getFieldProviderPeriod() {
+        return fieldProviderPeriod;
+    }
+
+    /**
+     * локатор суммы.
+     */
+    private By fieldSum =
+            By.xpath("//div[1]/div[1]/div[1]/div[1]/label[1]/div[1]/input[1]");
+
+    /**
+     * возвращет локатор суммы.
+     * @return локатор.
+     */
+    public By getFieldSum() {
+        return fieldSum;
+    }
+
+    /**
+     * локатор ошибкт сообщения код плательщика.
+     */
+    private By errorMessageCodePayment =
+            By.xpath("//form[1]/div[1]/div[1]/div[2]");
+
+    /**
+     * возвращает локатор.
+     * @return локатор ошибкт сообщения код плательщика.
+     */
+    public By getErrorMessageCodePayment() {
+        return errorMessageCodePayment;
+    }
+
+    /**
+     * Локатор ошибки даты.
+     */
+    private By errorMessageDate =
+            By.xpath("//form[1]/div[2]/div[1]/div[2]");
+
+    /**
+     * Возвращает локатор ошибки даты.
+     * @return локатор.
+     */
+    public By getErrorMessageDate() {
+        return errorMessageDate;
+    }
+
+    /**
+     * Ошибка сообщение суммы.
+     */
+    private By errorMessageSum =
+            By.xpath("//div[1]/div[1]/div[1]/div[1]/div[1]/div[2]");
+
+    /**
+     * Возвращает локатор.
+     * @return локатор.
+     */
+    public By getErrorMessageSum() {
+        return errorMessageSum;
+    }
+
+    /**
+     * Конструктор.
+     * @param driver драйвер.
+     */
     public ZKY_MoscowPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void ElementClick(By element){
-        wait = new WebDriverWait(driver, 60);
+    /**
+     * Нажимает на элемент.
+     * @param element локатор элемента.
+     */
+    public void elementClick(By element) {
+        wait = new WebDriverWait(driver, Time);
         wait.until(ExpectedConditions.visibilityOfElementLocated(element)).click();
     }
 
-    public String TextError (By element){
-        wait = new WebDriverWait(driver, 60);
+    /**
+     *  Получаем текст ощибки.
+     * @param element локатор элемента.
+     * @return текст ошибки.
+     */
+    public String textError(By element) {
+        wait = new WebDriverWait(driver, Time);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(element)).getText();
     }
-    public void InputText(By element, String s){
-        wait = new WebDriverWait(driver, 60);
-        WebElement Element = wait.until(ExpectedConditions.visibilityOfElementLocated(element));
-        Element.sendKeys(s);
-        Element.sendKeys(Keys.TAB);
+
+    /**
+     * Вводит текст.
+     * @param element локатор элемента.
+     * @param s то, что нужно ввести.
+     */
+    public void inputText(By element, String s) {
+        wait = new WebDriverWait(driver, Time);
+        WebElement thisElement = wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+        thisElement.sendKeys(s);
+        thisElement.sendKeys(Keys.TAB);
     }
 }
