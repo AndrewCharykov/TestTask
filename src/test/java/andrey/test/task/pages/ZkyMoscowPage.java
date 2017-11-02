@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 /**
  *
  */
-public class ZKY_MoscowPage {
+public class ZkyMoscowPage {
     /**
      * Время ожидания.
      */
@@ -150,7 +150,7 @@ public class ZKY_MoscowPage {
      * Конструктор.
      * @param driver драйвер.
      */
-    public ZKY_MoscowPage(WebDriver driver) {
+    public ZkyMoscowPage(WebDriver driver) {
         this.driver = driver;
     }
 

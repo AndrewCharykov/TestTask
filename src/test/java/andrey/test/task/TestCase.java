@@ -2,14 +2,14 @@ package andrey.test.task;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.Test;
 import andrey.test.task.pages.*;
+import org.testng.annotations.Test;
 
 
 /**
  * Первый тест.
  */
-public class test extends BaseTest {
+public class TestCase extends BaseTest {
     /**
      * Погнали.
      * @throws InterruptedException  погнали.
@@ -49,45 +49,45 @@ public class test extends BaseTest {
         communalPaymentsPage.elementClick(communalPaymentsPage.getZkyMoscow());
 
         //6.На странице оплаты, перейти на вкладку “Оплатить ЖКУ в Москве“.
-        ZKY_MoscowPage zky_moscowPage = new ZKY_MoscowPage(driver);
-        zky_moscowPage.elementClick(zky_moscowPage.getPayZkyInMoscow());
+        ZkyMoscowPage zkyMoscowPage = new ZkyMoscowPage(driver);
+        zkyMoscowPage.elementClick(zkyMoscowPage.getPayZkyInMoscow());
 
         //7.Выполнить проверки на невалидные значения для обязательных полей:
         // проверить все текстовые сообщения об ошибке (и их содержимое),
         // которые появляются под соответствующим полем ввода
         // в результате ввода некорректных данных.
-        zky_moscowPage.elementClick(zky_moscowPage.getButtonPayZkyInMoscow());
+        zkyMoscowPage.elementClick(zkyMoscowPage.getButtonPayZkyInMoscow());
         Assert.assertEquals("Поле обязательное",
-                zky_moscowPage.textError(zky_moscowPage.getErrorMessageCodePayment()));
+                zkyMoscowPage.textError(zkyMoscowPage.getErrorMessageCodePayment()));
 
         Assert.assertEquals("Поле обязательное",
-                zky_moscowPage.textError(zky_moscowPage.getErrorMessageDate()));
+                zkyMoscowPage.textError(zkyMoscowPage.getErrorMessageDate()));
 
         Assert.assertEquals("Поле обязательное",
-                zky_moscowPage.textError(zky_moscowPage.getErrorMessageSum()));
+                zkyMoscowPage.textError(zkyMoscowPage.getErrorMessageSum()));
 
-        zky_moscowPage.inputText(zky_moscowPage.getFieldPayerCode(), "1");
+        zkyMoscowPage.inputText(zkyMoscowPage.getFieldPayerCode(), "1");
 
         Assert.assertEquals("Поле неправильно заполнено",
-                zky_moscowPage.textError(zky_moscowPage.getErrorMessageCodePayment()));
+                zkyMoscowPage.textError(zkyMoscowPage.getErrorMessageCodePayment()));
 
-        zky_moscowPage.inputText(zky_moscowPage.getFieldProviderPeriod(), "1");
+        zkyMoscowPage.inputText(zkyMoscowPage.getFieldProviderPeriod(), "1");
 
         Assert.assertEquals("Поле заполнено некорректно",
-                zky_moscowPage.textError(zky_moscowPage.getErrorMessageDate()));
+                zkyMoscowPage.textError(zkyMoscowPage.getErrorMessageDate()));
 
-        zky_moscowPage.inputText(zky_moscowPage.getFieldSum(), "1");
+        zkyMoscowPage.inputText(zkyMoscowPage.getFieldSum(), "1");
 
         Assert.assertEquals("Минимальная сумма перевода - 10 \u20BD",
-                zky_moscowPage.textError(zky_moscowPage.getErrorMessageSum()));
+                zkyMoscowPage.textError(zkyMoscowPage.getErrorMessageSum()));
 
-        zky_moscowPage.inputText(zky_moscowPage.getFieldSum(), "15001");
+        zkyMoscowPage.inputText(zkyMoscowPage.getFieldSum(), "15001");
 
         Assert.assertEquals("Максимальная сумма перевода - 15 000 \u20BD",
-                zky_moscowPage.textError(zky_moscowPage.getErrorMessageSum()));
+                zkyMoscowPage.textError(zkyMoscowPage.getErrorMessageSum()));
 
         //8.Повторить шаг (2).
-        zky_moscowPage.elementClick(zky_moscowPage.getPayments());
+        zkyMoscowPage.elementClick(zkyMoscowPage.getPayments());
 
         //9.В строке быстрого поиска поставщика услуг
         // ввести наименование искомого (ранее сохраненного).
