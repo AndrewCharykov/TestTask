@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- *
+ * Страница платежей в Москве.
  */
 public class ZkyMoscowPage {
     /**
