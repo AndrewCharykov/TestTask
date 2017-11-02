@@ -13,8 +13,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class ZkyMoscowPage {
     /**
      * Время ожидания.
+     *
      */
-    final int timeWaiting = 60;
+    private final int timeWaiting = 60;
+    /**
+     * getter for timeWaiting.
+     *  @return time.
+     */
+    public int gettimeWaiting() {
+        return timeWaiting;
+    }
     /**
      * Вебдрайвер.
      */
@@ -159,8 +167,9 @@ public class ZkyMoscowPage {
      * @param element локатор элемента.
      */
     public void elementClick(By element) {
-        wait = new WebDriverWait(driver, timeWaiting);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(element)).click();
+        wait = new WebDriverWait(driver, gettimeWaiting());
+        wait.until(ExpectedConditions
+                .visibilityOfElementLocated(element)).click();
     }
 
     /**
@@ -169,8 +178,9 @@ public class ZkyMoscowPage {
      * @return текст ошибки.
      */
     public String textError(By element) {
-        wait = new WebDriverWait(driver, timeWaiting);
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(element)).getText();
+        wait = new WebDriverWait(driver, gettimeWaiting());
+        return wait.until(ExpectedConditions
+                .visibilityOfElementLocated(element)).getText();
     }
 
     /**
@@ -179,8 +189,9 @@ public class ZkyMoscowPage {
      * @param s то, что нужно ввести.
      */
     public void inputText(By element, String s) {
-        wait = new WebDriverWait(driver, timeWaiting);
-        WebElement thisElement = wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+        wait = new WebDriverWait(driver, gettimeWaiting());
+        WebElement thisElement = wait.until(ExpectedConditions
+                .visibilityOfElementLocated(element));
         thisElement.sendKeys(s);
         thisElement.sendKeys(Keys.TAB);
     }

@@ -12,8 +12,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class CommunalPaymentsPage {
     /**
      * Время ожидания.
+     *
      */
-    final int timeWaiting = 60;
+    private final int timeWaiting = 60;
+    /**
+     * getter for timeWaiting.
+     *  @return time.
+     */
+    public int gettimeWaiting() {
+        return timeWaiting;
+    }
+
     /**
      * Вебдрайвер.
      */
@@ -78,14 +87,16 @@ public class CommunalPaymentsPage {
      * @param element локатор элемента.
      */
     public void communalPaymentsInCity(String s, By element) {
-        wait = new WebDriverWait(driver, timeWaiting);
+        wait = new WebDriverWait(driver, gettimeWaiting());
         WebElement districtNow =
-                wait.until(ExpectedConditions.visibilityOfElementLocated(communalPaymentsDistrict));
+                wait.until(ExpectedConditions
+                        .visibilityOfElementLocated(communalPaymentsDistrict));
 
         if (!districtNow.getText().equals(s)) {
             elementClick(communalPaymentsDistrict);
-            wait = new WebDriverWait(driver, timeWaiting);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(element)).click();
+            wait = new WebDriverWait(driver, gettimeWaiting());
+            wait.until(ExpectedConditions
+                    .visibilityOfElementLocated(element)).click();
         }
     }
 
@@ -94,8 +105,9 @@ public class CommunalPaymentsPage {
      * @param element локатор.
      */
     public void elementClick(By element) {
-        wait = new WebDriverWait(driver, timeWaiting);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(element)).click();
+        wait = new WebDriverWait(driver, gettimeWaiting());
+        wait.until(ExpectedConditions
+                .visibilityOfElementLocated(element)).click();
     }
 
     /**
@@ -103,7 +115,7 @@ public class CommunalPaymentsPage {
      * @param element локатор элемента.
      */
     public void elementWait(By element) {
-        wait = new WebDriverWait(driver, timeWaiting);
+        wait = new WebDriverWait(driver, gettimeWaiting());
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 }

@@ -14,8 +14,16 @@ import java.util.List;
 public class PaymentsPage  {
     /**
      * Время ожидания.
-      */
-    final int timeWaiting = 60;
+     *
+     */
+    private final int timeWaiting = 60;
+    /**
+     * getter for timeWaiting.
+     *  @return time.
+     */
+    public int gettimeWaiting() {
+        return timeWaiting;
+    }
     /**
      * Вебдрайвер.
      */
@@ -78,8 +86,9 @@ public class PaymentsPage  {
      * @param s текст.
      */
     public void inputTextInTheField(By element, String s) {
-        wait = new WebDriverWait(driver, timeWaiting);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(element)).click();
+        wait = new WebDriverWait(driver, gettimeWaiting());
+        wait.until(ExpectedConditions
+                .visibilityOfElementLocated(element)).click();
         driver.findElement(element).sendKeys(s);
     }
 
@@ -88,9 +97,11 @@ public class PaymentsPage  {
      * @param s1 стринга.
      */
     public void compareDropdown(String s1) {
-        wait = new WebDriverWait(driver, timeWaiting);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='_2vlxq']")));
-        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='_2vlxq']"));
+        wait = new WebDriverWait(driver, gettimeWaiting());
+        wait.until(ExpectedConditions
+              .visibilityOfElementLocated(By.xpath("//div[@class='_2vlxq']")));
+        List<WebElement> elements =
+              driver.findElements(By.xpath("//div[@class='_2vlxq']"));
         String s = elements.get(0).getText();
         String[] parts = (s + " ").split("\\p{P}?[ \\n]+");
         if (!parts[0].equals(s1)) {
@@ -103,17 +114,20 @@ public class PaymentsPage  {
      * @param element локатор элемента.
      */
     public void elementClick(By element) {
-        wait = new WebDriverWait(driver, timeWaiting);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(element)).click();
+        wait = new WebDriverWait(driver, gettimeWaiting());
+        wait.until(ExpectedConditions
+                .visibilityOfElementLocated(element)).click();
     }
 
     /**
      * Не входит в список.
      */
     public void notIncluderInTheList() {
-        wait = new WebDriverWait(driver, timeWaiting);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='_200uJ']")));
-        List<WebElement> elements = driver.findElements(By.xpath("//div[@class='_200uJ']"));
+        wait = new WebDriverWait(driver, gettimeWaiting());
+        wait.until(ExpectedConditions
+              .visibilityOfElementLocated(By.xpath("//div[@class='_200uJ']")));
+        List<WebElement> elements =
+              driver.findElements(By.xpath("//div[@class='_200uJ']"));
         String s = elements.get(0).getText();
         if (!s.equals("Ничего не найдено")) {
             return;
