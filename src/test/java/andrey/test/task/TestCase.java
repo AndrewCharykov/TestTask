@@ -2,7 +2,10 @@ package andrey.test.task;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import andrey.test.task.pages.*;
+import andrey.test.task.pages.CommunalPaymentsPage;
+import andrey.test.task.pages.HomePage;
+import andrey.test.task.pages.PaymentsPage;
+import andrey.test.task.pages.ZkyMoscowPage;
 import org.testng.annotations.Test;
 
 
@@ -34,8 +37,7 @@ public class TestCase extends BaseTest {
 
         //4.Убедиться, что текущий регион – “г. Москва”
         // (в противном случае выбрать регион “г. Москва” из списка регионов).
-        CommunalPaymentsPage communalPaymentsPage =
-                new CommunalPaymentsPage(driver);
+        CommunalPaymentsPage communalPaymentsPage = new CommunalPaymentsPage(driver);
         communalPaymentsPage.communalPaymentsInCity("Москве",
                 communalPaymentsPage.getMoscowPayments());
 
@@ -44,8 +46,7 @@ public class TestCase extends BaseTest {
         // Сохранить его наименование (далее “искомый”)
         // и нажатием на соответствующий элемент перейти на страницу оплаты “ЖКУ-Москва
         communalPaymentsPage.elementWait(communalPaymentsPage.getZkyMoscow());
-        String zkyName =
-                driver.findElement(communalPaymentsPage.getZkyMoscow()).getText();
+        String zkyName = driver.findElement(communalPaymentsPage.getZkyMoscow()).getText();
         communalPaymentsPage.elementClick(communalPaymentsPage.getZkyMoscow());
 
         //6.На странице оплаты, перейти на вкладку “Оплатить ЖКУ в Москве“.
@@ -91,8 +92,7 @@ public class TestCase extends BaseTest {
 
         //9.В строке быстрого поиска поставщика услуг
         // ввести наименование искомого (ранее сохраненного).
-        paymentsPage.inputTextInTheField(paymentsPage.getFieldForInput(),
-                zkyName);
+        paymentsPage.inputTextInTheField(paymentsPage.getFieldForInput(), zkyName);
 
         //10.Убедиться, что в списке предложенных провайдеров
         // искомый поставщик первый.
@@ -109,13 +109,11 @@ public class TestCase extends BaseTest {
         paymentsPage.elementClick(paymentsPage.getCommunalPayments());
 
         //13.В списке регионов выбрать “г. Санкт-Петербург”.
-        communalPaymentsPage.communalPaymentsInCity("Санкт-Петербурге",
-                communalPaymentsPage.getSpbPayments());
+        communalPaymentsPage.communalPaymentsInCity("Санкт-Петербурге", communalPaymentsPage.getSpbPayments());
 
         //14.Убедится, что в списке поставщиков на странице выбора поставщиков
         // услуг отсутствует искомый
-        paymentsPage.inputTextInTheField(paymentsPage.getFieldForInput(),
-                zkyName);
+        paymentsPage.inputTextInTheField(paymentsPage.getFieldForInput(), zkyName);
         paymentsPage.notIncluderInTheList();
     }
 
