@@ -77,7 +77,7 @@ public class CommunalPaymentsPage {
      * Инициализация драйвера.
      * @param driver передаем двайвер.
      */
-    public CommunalPaymentsPage(WebDriver driver) {
+    public CommunalPaymentsPage(final WebDriver driver) {
         this.driver = driver;
     }
 
@@ -86,7 +86,7 @@ public class CommunalPaymentsPage {
      * @param s  стринга город.
      * @param element локатор элемента.
      */
-    public void communalPaymentsInCity(String s, By element) {
+    public void communalPaymentsInCity(final String s, final By element) {
         wait = new WebDriverWait(driver, gettimeWaiting());
         WebElement districtNow =
                 wait.until(ExpectedConditions
@@ -104,7 +104,7 @@ public class CommunalPaymentsPage {
      * Нажимает на элемент.
      * @param element локатор.
      */
-    public void elementClick(By element) {
+    public void elementClick(final By element) {
         wait = new WebDriverWait(driver, gettimeWaiting());
         wait.until(ExpectedConditions
                 .visibilityOfElementLocated(element)).click();
@@ -114,7 +114,7 @@ public class CommunalPaymentsPage {
      * Ожидание элемента.
      * @param element локатор элемента.
      */
-    public void elementWait(By element) {
+    public void elementWait(final By element) {
         wait = new WebDriverWait(driver, gettimeWaiting());
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }

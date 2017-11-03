@@ -52,7 +52,7 @@ public class HomePage {
      * Инициализация  драйвера.
      * @param driver драйвер.
      */
-    public HomePage(WebDriver driver) {
+    public HomePage(final WebDriver driver) {
         this.driver = driver;
     }
 
@@ -67,7 +67,7 @@ public class HomePage {
      * нажимаем на элемент.
      * @param element локатор.
      */
-    public void elementClick(By element) {
+    public void elementClick(final By element) {
         wait = new WebDriverWait(driver, gettimeWaiting());
         wait.until(ExpectedConditions
                 .visibilityOfElementLocated(element)).click();

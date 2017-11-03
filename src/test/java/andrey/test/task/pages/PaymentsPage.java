@@ -76,7 +76,7 @@ public class PaymentsPage  {
      * Инициализация драйвера.
      * @param driver драйвер.
      */
-    public PaymentsPage(WebDriver driver) {
+    public PaymentsPage(final WebDriver driver) {
         this.driver = driver;
     }
 
@@ -85,7 +85,7 @@ public class PaymentsPage  {
      * @param element локатор поля.
      * @param s текст.
      */
-    public void inputTextInTheField(By element, String s) {
+    public void inputTextInTheField(final By element, final String s) {
         wait = new WebDriverWait(driver, gettimeWaiting());
         wait.until(ExpectedConditions
                 .visibilityOfElementLocated(element)).click();
@@ -96,7 +96,7 @@ public class PaymentsPage  {
      *  Сравнивает дропдаун.
      * @param s1 стринга.
      */
-    public void compareDropdown(String s1) {
+    public void compareDropdown(final String s1) {
         wait = new WebDriverWait(driver, gettimeWaiting());
         wait.until(ExpectedConditions
               .visibilityOfElementLocated(By.xpath("//div[@class='_2vlxq']")));
@@ -113,7 +113,7 @@ public class PaymentsPage  {
      * Нажатие на элемент.
      * @param element локатор элемента.
      */
-    public void elementClick(By element) {
+    public void elementClick(final By element) {
         wait = new WebDriverWait(driver, gettimeWaiting());
         wait.until(ExpectedConditions
                 .visibilityOfElementLocated(element)).click();

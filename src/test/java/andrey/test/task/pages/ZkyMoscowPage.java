@@ -158,7 +158,7 @@ public class ZkyMoscowPage {
      * Конструктор.
      * @param driver драйвер.
      */
-    public ZkyMoscowPage(WebDriver driver) {
+    public ZkyMoscowPage(final WebDriver driver) {
         this.driver = driver;
     }
 
@@ -166,7 +166,7 @@ public class ZkyMoscowPage {
      * Нажимает на элемент.
      * @param element локатор элемента.
      */
-    public void elementClick(By element) {
+    public void elementClick(final By element) {
         wait = new WebDriverWait(driver, gettimeWaiting());
         wait.until(ExpectedConditions
                 .visibilityOfElementLocated(element)).click();
@@ -177,7 +177,7 @@ public class ZkyMoscowPage {
      * @param element локатор элемента.
      * @return текст ошибки.
      */
-    public String textError(By element) {
+    public String textError(final By element) {
         wait = new WebDriverWait(driver, gettimeWaiting());
         return wait.until(ExpectedConditions
                 .visibilityOfElementLocated(element)).getText();
@@ -188,7 +188,7 @@ public class ZkyMoscowPage {
      * @param element локатор элемента.
      * @param s то, что нужно ввести.
      */
-    public void inputText(By element, String s) {
+    public void inputText(final By element, final String s) {
         wait = new WebDriverWait(driver, gettimeWaiting());
         WebElement thisElement = wait.until(ExpectedConditions
                 .visibilityOfElementLocated(element));
