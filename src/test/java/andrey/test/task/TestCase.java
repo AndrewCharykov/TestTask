@@ -2,10 +2,6 @@ package andrey.test.task;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import andrey.test.task.pages.CommunalPaymentsPage;
-import andrey.test.task.pages.HomePage;
-import andrey.test.task.pages.PaymentsPage;
-import andrey.test.task.pages.ZkyMoscowPage;
 import org.testng.annotations.Test;
 
 

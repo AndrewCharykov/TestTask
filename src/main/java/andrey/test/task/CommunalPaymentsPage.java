@@ -1,4 +1,4 @@
-package andrey.test.task.pages;
+package andrey.test.task;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
