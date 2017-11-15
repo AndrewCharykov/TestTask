@@ -3,6 +3,8 @@ package andrey.test.task;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -33,44 +35,22 @@ public class PaymentsPage  {
      */
     private WebDriverWait wait;
     /**
-     * Локтор "Коммунальные платежи".
+     * Элемент "Коммунальные платежи".
      */
-    private By communalPayments =
-            By.xpath("//span[text()='Коммунальные платежи']");
+    @FindBy(xpath = "//span[text()='Коммунальные платежи']" )
+    public WebElement communalPayments;
 
     /**
-     * Возвращает локатор.
-     * @return локатор.
+     * Элемент Поле для ввода.
      */
-    public By getCommunalPayments() {
-        return communalPayments;
-    }
+    @FindBy(xpath = "//input[@autocomplete='off'][@autocapitalize='off']" )
+    public WebElement fieldForInput;
 
     /**
-     * Поле для ввода.
+     * Элемент Первый элемент из дропдайна.
      */
-    private By fieldForInput = By.xpath("//input[@autocomplete='off']");
-
-    /**
-     * Возвращает локатор.
-     * @return локатор.
-     */
-    public By getFieldForInput() {
-        return fieldForInput;
-    }
-
-    /**
-     * Первый элемент из дропдайна.
-     */
-    private By firstElementInDropdown = By.cssSelector("._2vlxq");
-
-    /**
-     * Возвращает локатор первого элемента из дропдауна.
-     * @return локатор.
-     */
-    public By getFirstElementInDropdown() {
-        return firstElementInDropdown;
-    }
+    @FindBy(css = "._2vlxq" )
+    public WebElement firstElementInDropdown;
 
     /**
      * Инициализация драйвера.
@@ -78,6 +58,7 @@ public class PaymentsPage  {
      */
     public PaymentsPage(final WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(this.driver, this);
     }
 
     /**
@@ -85,11 +66,11 @@ public class PaymentsPage  {
      * @param element локатор поля.
      * @param s текст.
      */
-    public void inputTextInTheField(final By element, final String s) {
+    public void inputTextInTheField(final WebElement element, final String s) {
         wait = new WebDriverWait(driver, gettimeWaiting());
         wait.until(ExpectedConditions
-                .visibilityOfElementLocated(element)).click();
-        driver.findElement(element).sendKeys(s);
+                .visibilityOf(element)).click();
+        element.sendKeys(s);
     }
 
     /**
@@ -99,9 +80,9 @@ public class PaymentsPage  {
     public void compareDropdown(final String s1) {
         wait = new WebDriverWait(driver, gettimeWaiting());
         wait.until(ExpectedConditions
-              .visibilityOfElementLocated(By.xpath("//div[@class='_2vlxq']")));
+              .visibilityOfElementLocated(By.xpath("//div[@class='U_INn _3F9eq _1E2xX']")));
         List<WebElement> elements =
-              driver.findElements(By.xpath("//div[@class='_2vlxq']"));
+              driver.findElements(By.xpath("//div[@class='U_INn _3F9eq _1E2xX']"));
         String s = elements.get(0).getText();
         String[] parts = (s + " ").split("\\p{P}?[ \\n]+");
         if (!parts[0].equals(s1)) {
@@ -113,10 +94,10 @@ public class PaymentsPage  {
      * Нажатие на элемент.
      * @param element локатор элемента.
      */
-    public void elementClick(final By element) {
+    public void elementClick(final WebElement element) {
         wait = new WebDriverWait(driver, gettimeWaiting());
         wait.until(ExpectedConditions
-                .visibilityOfElementLocated(element)).click();
+                .visibilityOf(element)).click();
     }
 
     /**
@@ -125,9 +106,9 @@ public class PaymentsPage  {
     public void notIncluderInTheList() {
         wait = new WebDriverWait(driver, gettimeWaiting());
         wait.until(ExpectedConditions
-              .visibilityOfElementLocated(By.xpath("//div[@class='_200uJ']")));
+              .visibilityOfElementLocated(By.xpath("//div[@class='U_INn _3F9eq _1E2xX']")));
         List<WebElement> elements =
-              driver.findElements(By.xpath("//div[@class='_200uJ']"));
+              driver.findElements(By.xpath("//div[@class='U_INn _3F9eq _1E2xX']"));
         String s = elements.get(0).getText();
         if (!s.equals("Ничего не найдено")) {
             return;

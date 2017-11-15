@@ -16,100 +16,69 @@ public class TestCase extends BaseTest {
     @Test
     public void tinkoffPage() throws InterruptedException {
         WebDriver driver = getDriver();
-        //1.Переходом по адресу https://www.tinkoff.ru/
-        // загрузить стартовую страницу Tinkoff Bank.
         HomePage homePage = new HomePage(driver);
         homePage.homePageOpen();
 
-        //2.Из верхнего меню, нажатием на пункт меню “Платежи“,
-        // перейти на страницу “Платежи“.
-        homePage.elementClick(homePage.getPayments());
+        homePage.elementClick(homePage.payments);
 
-        //3.В списке категорий платежей,
-        // нажатием на пункт “Коммунальные платежи“,
-        // перейти на  страницу выбора поставщиков услуг.
         PaymentsPage paymentsPage = new PaymentsPage(driver);
-        paymentsPage.elementClick(paymentsPage.getCommunalPayments());
+        paymentsPage.elementClick(paymentsPage.communalPayments);
 
-        //4.Убедиться, что текущий регион – “г. Москва”
-        // (в противном случае выбрать регион “г. Москва” из списка регионов).
         CommunalPaymentsPage communalPaymentsPage = new CommunalPaymentsPage(driver);
         communalPaymentsPage.communalPaymentsInCity("Москве",
-                communalPaymentsPage.getMoscowPayments());
+                communalPaymentsPage.moscowPayments);
 
-        //5.Со страницы выбора поставщиков услуг,
-        // выбрать 1-ый из списка (Должен быть “ЖКУ-Москва”).
-        // Сохранить его наименование (далее “искомый”)
-        // и нажатием на соответствующий элемент перейти на страницу оплаты “ЖКУ-Москва
-        communalPaymentsPage.elementWait(communalPaymentsPage.getZkyMoscow());
-        String zkyName = driver.findElement(communalPaymentsPage.getZkyMoscow()).getText();
-        communalPaymentsPage.elementClick(communalPaymentsPage.getZkyMoscow());
+        communalPaymentsPage.elementWait(communalPaymentsPage.zkyMoscow);
+        String zkyName = communalPaymentsPage.zkyMoscow.getText();
+        communalPaymentsPage.elementClick(communalPaymentsPage.zkyMoscow);
 
-        //6.На странице оплаты, перейти на вкладку “Оплатить ЖКУ в Москве“.
         ZkyMoscowPage zkyMoscowPage = new ZkyMoscowPage(driver);
-        zkyMoscowPage.elementClick(zkyMoscowPage.getPayZkyInMoscow());
+        zkyMoscowPage.elementClick(zkyMoscowPage.payZkyInMoscow);
 
-        //7.Выполнить проверки на невалидные значения для обязательных полей:
-        // проверить все текстовые сообщения об ошибке (и их содержимое),
-        // которые появляются под соответствующим полем ввода
-        // в результате ввода некорректных данных.
-        zkyMoscowPage.elementClick(zkyMoscowPage.getButtonPayZkyInMoscow());
+        zkyMoscowPage.elementClick(zkyMoscowPage.buttonPayZkyInMoscow);
         Assert.assertEquals("Поле обязательное",
-                zkyMoscowPage.textError(zkyMoscowPage.getErrorMessageCodePayment()));
+                zkyMoscowPage.textError(zkyMoscowPage.errorMessageCodePayment));
 
         Assert.assertEquals("Поле обязательное",
-                zkyMoscowPage.textError(zkyMoscowPage.getErrorMessageDate()));
+                zkyMoscowPage.textError(zkyMoscowPage.errorMessageDate));
 
         Assert.assertEquals("Поле обязательное",
-                zkyMoscowPage.textError(zkyMoscowPage.getErrorMessageSum()));
+                zkyMoscowPage.textError(zkyMoscowPage.errorMessageSum));
 
-        zkyMoscowPage.inputText(zkyMoscowPage.getFieldPayerCode(), "1");
+        zkyMoscowPage.inputText(zkyMoscowPage.fieldPayerCode, "1");
 
         Assert.assertEquals("Поле неправильно заполнено",
-                zkyMoscowPage.textError(zkyMoscowPage.getErrorMessageCodePayment()));
+                zkyMoscowPage.textError(zkyMoscowPage.errorMessageCodePayment));
 
-        zkyMoscowPage.inputText(zkyMoscowPage.getFieldProviderPeriod(), "1");
+        zkyMoscowPage.inputText(zkyMoscowPage.fieldProviderPeriod, "1");
 
         Assert.assertEquals("Поле заполнено некорректно",
-                zkyMoscowPage.textError(zkyMoscowPage.getErrorMessageDate()));
+                zkyMoscowPage.textError(zkyMoscowPage.errorMessageDate));
 
-        zkyMoscowPage.inputText(zkyMoscowPage.getFieldSum(), "1");
+        zkyMoscowPage.inputText(zkyMoscowPage.fieldSum, "1");
 
         Assert.assertEquals("Минимальная сумма перевода - 10 \u20BD",
-                zkyMoscowPage.textError(zkyMoscowPage.getErrorMessageSum()));
+                zkyMoscowPage.textError(zkyMoscowPage.errorMessageSum));
 
-        zkyMoscowPage.inputText(zkyMoscowPage.getFieldSum(), "15001");
+        zkyMoscowPage.inputText(zkyMoscowPage.fieldSum, "15001");
 
         Assert.assertEquals("Максимальная сумма перевода - 15 000 \u20BD",
-                zkyMoscowPage.textError(zkyMoscowPage.getErrorMessageSum()));
+                zkyMoscowPage.textError(zkyMoscowPage.errorMessageSum));
 
-        //8.Повторить шаг (2).
-        zkyMoscowPage.elementClick(zkyMoscowPage.getPayments());
+        zkyMoscowPage.elementClick(zkyMoscowPage.payments);
 
-        //9.В строке быстрого поиска поставщика услуг
-        // ввести наименование искомого (ранее сохраненного).
-        paymentsPage.inputTextInTheField(paymentsPage.getFieldForInput(), zkyName);
+        paymentsPage.inputTextInTheField(paymentsPage.fieldForInput, zkyName);
 
-        //10.Убедиться, что в списке предложенных провайдеров
-        // искомый поставщик первый.
         paymentsPage.compareDropdown("ЖКУ-Москва");
 
-        //11.Нажатием на элемент, соответствующий искомому,
-        // перейти на страницу “Оплатить ЖКУ в Москве“.
-        // Убедиться, что загруженная страница та же,
-        // что и страница, загруженная в результате шага (5).
-        paymentsPage.elementClick(paymentsPage.getFirstElementInDropdown());
+        paymentsPage.elementClick(paymentsPage.firstElementInDropdown);
 
-        //12.Выполнить шаги (2) и (3).
-        homePage.elementClick(homePage.getPayments());
-        paymentsPage.elementClick(paymentsPage.getCommunalPayments());
+        homePage.elementClick(homePage.payments);
+        paymentsPage.elementClick(paymentsPage.communalPayments);
 
-        //13.В списке регионов выбрать “г. Санкт-Петербург”.
-        communalPaymentsPage.communalPaymentsInCity("Санкт-Петербурге", communalPaymentsPage.getSpbPayments());
+        communalPaymentsPage.communalPaymentsInCity("Санкт-Петербурге", communalPaymentsPage.spbPayments);
 
-        //14.Убедится, что в списке поставщиков на странице выбора поставщиков
-        // услуг отсутствует искомый
-        paymentsPage.inputTextInTheField(paymentsPage.getFieldForInput(), zkyName);
+        paymentsPage.inputTextInTheField(paymentsPage.fieldForInput, zkyName);
         paymentsPage.notIncluderInTheList();
     }
 

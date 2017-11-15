@@ -3,6 +3,8 @@ package andrey.test.task;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -32,46 +34,29 @@ public class CommunalPaymentsPage {
      */
     private WebDriverWait wait;
     /**
-     * Коммунальные платежи - город.
+     * Элемент Коммунальные платежи - город.
      */
-    private By communalPaymentsDistrict =
-            By.cssSelector(".payment-page__title_inner");
-    /**
-     * ЖКУ москва.
-     */
-    private By zkyMoscow = By.xpath("//span[text()='ЖКУ-Москва']");
+
+    @FindBy(css = ".payment-page__title_inner")
+    private WebElement communalPaymentsDistrict;
 
     /**
-     *  Возвращает локатор на ЖКУ Москва.
-     * @return локатор.
+     * Элемент ЖКУ москва.
      */
-    public By getZkyMoscow() {
-        return zkyMoscow;
-    }
-    /**
-     * Локатор города Москва в выборе городов.
-     */
-    private By moscowPayments = By.xpath("//span[text()='г. Москва']");
+    @FindBy (xpath = "//span[text()='ЖКУ-Москва']" )
+    public WebElement zkyMoscow;
 
     /**
-     * Возвращает локатор г Москва.
-     * @return локатор.
+     * Элемент Локатор города Москва в выборе городов.
      */
-    public By getMoscowPayments() {
-        return moscowPayments;
-    }
-    /**
-     * Локатор города СПб в выборе городов.
-     */
-    private By spbPayments = By.xpath("//span[text()='г. Санкт-Петербург']");
+    @FindBy (xpath = "//span[text()='г. Москва']" )
+    public WebElement moscowPayments;
 
     /**
-     * Возвращает локатор гСпб.
-     * @return локатор.
+     * Элемент Локатор города СПб в выборе городов.
      */
-    public By getSpbPayments() {
-        return spbPayments;
-    }
+    @FindBy (xpath = "//span[text()='г. Санкт-Петербург']" )
+    public WebElement spbPayments;
 
     /**
      * Инициализация драйвера.
@@ -79,6 +64,7 @@ public class CommunalPaymentsPage {
      */
     public CommunalPaymentsPage(final WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(this.driver, this);
     }
 
     /**
@@ -86,17 +72,17 @@ public class CommunalPaymentsPage {
      * @param s  стринга город.
      * @param element локатор элемента.
      */
-    public void communalPaymentsInCity(final String s, final By element) {
+    public void communalPaymentsInCity(final String s, final WebElement element) {
         wait = new WebDriverWait(driver, gettimeWaiting());
         WebElement districtNow =
                 wait.until(ExpectedConditions
-                        .visibilityOfElementLocated(communalPaymentsDistrict));
+                        .visibilityOf(communalPaymentsDistrict));
 
         if (!districtNow.getText().equals(s)) {
-            elementClick(communalPaymentsDistrict);
+            communalPaymentsDistrict.click();
             wait = new WebDriverWait(driver, gettimeWaiting());
             wait.until(ExpectedConditions
-                    .visibilityOfElementLocated(element)).click();
+                    .visibilityOf(element)).click();
         }
     }
 
@@ -104,18 +90,18 @@ public class CommunalPaymentsPage {
      * Нажимает на элемент.
      * @param element локатор.
      */
-    public void elementClick(final By element) {
+    public void elementClick(final WebElement element) {
         wait = new WebDriverWait(driver, gettimeWaiting());
         wait.until(ExpectedConditions
-                .visibilityOfElementLocated(element)).click();
+                .visibilityOf(element)).click();
     }
 
     /**
      * Ожидание элемента.
      * @param element локатор элемента.
      */
-    public void elementWait(final By element) {
+    public void elementWait(final WebElement element) {
         wait = new WebDriverWait(driver, gettimeWaiting());
-        wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+        wait.until(ExpectedConditions.visibilityOf(element));
     }
 }

@@ -2,6 +2,9 @@ package andrey.test.task;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -31,17 +34,10 @@ public class HomePage {
      */
     private WebDriverWait wait;
     /**
-     * Локатор платежей.
+     * Элемент платежей.
      */
-    private By payments = By.xpath("//span[text()='Платежи'][@class='_3Qu__']");
-
-    /**
-     * Возвращает локатор.
-     * @return локатор.
-     */
-    public By getPayments() {
-        return payments;
-    }
+    @FindBy(xpath = "//span[text()='Платежи'][@class='_3Qu__']")
+    public WebElement payments;
 
     /**
      * URL домашней страницы.
@@ -54,6 +50,7 @@ public class HomePage {
      */
     public HomePage(final WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(this.driver, this);
     }
 
     /**
@@ -67,9 +64,9 @@ public class HomePage {
      * нажимаем на элемент.
      * @param element локатор.
      */
-    public void elementClick(final By element) {
+    public void elementClick(WebElement element) {
         wait = new WebDriverWait(driver, gettimeWaiting());
         wait.until(ExpectedConditions
-                .visibilityOfElementLocated(element)).click();
+                .visibilityOf(element)).click();
     }
 }
