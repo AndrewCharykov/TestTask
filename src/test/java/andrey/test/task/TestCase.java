@@ -1,5 +1,6 @@
 package andrey.test.task;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -19,66 +20,64 @@ public class TestCase extends BaseTest {
         HomePage homePage = new HomePage(driver);
         homePage.homePageOpen();
 
-        homePage.elementClick(homePage.payments);
+        homePage.payments.click();
 
         PaymentsPage paymentsPage = new PaymentsPage(driver);
-        paymentsPage.elementClick(paymentsPage.communalPayments);
+        paymentsPage.communalPayments.click();
 
         CommunalPaymentsPage communalPaymentsPage = new CommunalPaymentsPage(driver);
         communalPaymentsPage.communalPaymentsInCity("Москве",
                 communalPaymentsPage.moscowPayments);
 
-        communalPaymentsPage.elementWait(communalPaymentsPage.zkyMoscow);
         String zkyName = communalPaymentsPage.zkyMoscow.getText();
-        communalPaymentsPage.elementClick(communalPaymentsPage.zkyMoscow);
+        communalPaymentsPage.zkyMoscow.click();
 
         ZkyMoscowPage zkyMoscowPage = new ZkyMoscowPage(driver);
-        zkyMoscowPage.elementClick(zkyMoscowPage.payZkyInMoscow);
+        zkyMoscowPage.payZkyInMoscow.click();
 
-        zkyMoscowPage.elementClick(zkyMoscowPage.buttonPayZkyInMoscow);
-        Assert.assertEquals("Поле обязательное",
-                zkyMoscowPage.textError(zkyMoscowPage.errorMessageCodePayment));
+        zkyMoscowPage.buttonPayZkyInMoscow.click();
 
         Assert.assertEquals("Поле обязательное",
-                zkyMoscowPage.textError(zkyMoscowPage.errorMessageDate));
+                zkyMoscowPage.errorMessageCodePayment.getText());
 
         Assert.assertEquals("Поле обязательное",
-                zkyMoscowPage.textError(zkyMoscowPage.errorMessageSum));
+                zkyMoscowPage.errorMessageDate.getText());
 
-        zkyMoscowPage.inputText(zkyMoscowPage.fieldPayerCode, "1");
+        Assert.assertEquals("Поле обязательное",
+                zkyMoscowPage.errorMessageSum.getText());
+
+        zkyMoscowPage.fieldPayerCode.sendKeys( "1");
+        zkyMoscowPage.fieldProviderPeriod.sendKeys( "1");
+        zkyMoscowPage.fieldSum.sendKeys( "1");
+        zkyMoscowPage.fieldSum.sendKeys( Keys.TAB);
 
         Assert.assertEquals("Поле неправильно заполнено",
-                zkyMoscowPage.textError(zkyMoscowPage.errorMessageCodePayment));
-
-        zkyMoscowPage.inputText(zkyMoscowPage.fieldProviderPeriod, "1");
-
+                zkyMoscowPage.errorMessageCodePayment.getText());
         Assert.assertEquals("Поле заполнено некорректно",
-                zkyMoscowPage.textError(zkyMoscowPage.errorMessageDate));
-
-        zkyMoscowPage.inputText(zkyMoscowPage.fieldSum, "1");
-
+                zkyMoscowPage.errorMessageDate.getText());
         Assert.assertEquals("Минимальная сумма перевода - 10 \u20BD",
-                zkyMoscowPage.textError(zkyMoscowPage.errorMessageSum));
+                zkyMoscowPage.errorMessageSum.getText());
 
-        zkyMoscowPage.inputText(zkyMoscowPage.fieldSum, "15001");
+        zkyMoscowPage.fieldSum.sendKeys( "15001");
 
         Assert.assertEquals("Максимальная сумма перевода - 15 000 \u20BD",
-                zkyMoscowPage.textError(zkyMoscowPage.errorMessageSum));
+               zkyMoscowPage.errorMessageSum.getText());
 
-        zkyMoscowPage.elementClick(zkyMoscowPage.payments);
+        zkyMoscowPage.payments.click();
 
-        paymentsPage.inputTextInTheField(paymentsPage.fieldForInput, zkyName);
+        paymentsPage.fieldForInput.sendKeys(zkyName);
+
 
         paymentsPage.compareDropdown("ЖКУ-Москва");
 
-        paymentsPage.elementClick(paymentsPage.firstElementInDropdown);
+        paymentsPage.firstElementInDropdown.click();
 
-        homePage.elementClick(homePage.payments);
-        paymentsPage.elementClick(paymentsPage.communalPayments);
+        homePage.payments.click();
+        paymentsPage.communalPayments.click();
 
         communalPaymentsPage.communalPaymentsInCity("Санкт-Петербурге", communalPaymentsPage.spbPayments);
 
-        paymentsPage.inputTextInTheField(paymentsPage.fieldForInput, zkyName);
+        paymentsPage.fieldForInput.sendKeys(zkyName);
         paymentsPage.notIncluderInTheList();
     }
 
