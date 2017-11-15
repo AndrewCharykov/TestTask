@@ -73,13 +73,4 @@ public class ZkyMoscowPage {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 15), this);
     }
 
-    /**
-     * Вводит текст.
-     * @param element локатор элемента.
-     * @param s то, что нужно ввести.
-     */
-    public void inputText(final WebElement element, final String s) {
-        element.sendKeys(s);
-        element.sendKeys(Keys.TAB);
-    }
 }
