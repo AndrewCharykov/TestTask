@@ -35,6 +35,12 @@ public class PaymentsPage  {
     @FindBy(css = "._2vlxq" )
     public WebElement firstElementInDropdown;
     /**
+     * Элемент Первый элемент из дропдайна.
+     */
+    @FindBy(xpath = "//div[@class='_10JW0']" )
+    public List<WebElement> dropElements;
+
+    /**
      * Инициализация драйвера.
      * @param driver драйвер.
      */
@@ -48,9 +54,7 @@ public class PaymentsPage  {
      * @param s1 стринга.
      */
     public void compareDropdown(final String s1) {
-        List<WebElement> elements =
-              driver.findElements(By.xpath("//*[contains(text(),'Что оплатить или куда перевести?')]"));
-        String s = elements.get(0).getText();
+        String s = dropElements.get(0).getText();
         String[] parts = (s + " ").split("\\p{P}?[ \\n]+");
         if (!parts[0].equals(s1)) {
             return;
@@ -60,9 +64,7 @@ public class PaymentsPage  {
      * Не входит в список.
      */
     public void notIncluderInTheList() {
-        List<WebElement> elements =
-              driver.findElements(By.xpath("//*[contains(text(),'Что оплатить или куда перевести?')]"));
-        String s = elements.get(0).getText();
+        String s = dropElements.get(0).getText();
         if (!s.equals("Ничего не найдено")) {
             return;
         }

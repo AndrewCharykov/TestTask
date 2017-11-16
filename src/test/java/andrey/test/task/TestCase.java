@@ -63,6 +63,8 @@ public class TestCase extends BaseTest {
         Assert.assertEquals("Максимальная сумма перевода - 15 000 \u20BD",
                zkyMoscowPage.errorMessageSum.getText());
 
+        zkyMoscowPage.fieldSum.sendKeys( Keys.TAB);
+
         zkyMoscowPage.payments.click();
 
         paymentsPage.fieldForInput.sendKeys(zkyName);

@@ -26,7 +26,7 @@ public class ZkyMoscowPage {
     /**
      *  Элемент Платежи.
      */
-    @FindBy(css = "//span[@data-reactid='97']" )
+    @FindBy(xpath = "//span[text()='Платежи'][@class='_3Qu__']" )
     public WebElement payments;
     /**
      * Элемент кнопки.
