@@ -22,7 +22,7 @@ public class BaseTest {
     @BeforeTest
     public void init() {
         setProperty("webdriver.chrome.driver",
-                "C:\\Users\\a.charykov\\Desktop\\chromedriver\\"
+                "C:\\Users\\a.charykov\\Desktop\\chromedriver_win32\\"
                         + "chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
