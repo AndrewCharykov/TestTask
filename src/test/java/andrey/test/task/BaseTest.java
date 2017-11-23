@@ -2,8 +2,8 @@ package andrey.test.task;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 import static java.lang.System.setProperty;
 
@@ -19,7 +19,7 @@ public class BaseTest {
     /**
      * Инициализацуия драйвера.
      */
-    @BeforeTest
+    @BeforeMethod
     public void init() {
         setProperty("webdriver.chrome.driver",
                 "C:\\Users\\a.charykov\\Desktop\\chromedriver_win32\\"
@@ -39,7 +39,7 @@ public class BaseTest {
     /**
      * Закрывает браузер.
      */
-    @AfterTest
+    @AfterMethod
     public void dispose() {
         driver.quit();
     }
