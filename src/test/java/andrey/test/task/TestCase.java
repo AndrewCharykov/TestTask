@@ -39,7 +39,6 @@ public class TestCase extends BaseTest {
 
         ZkyMoscowPage zkyMoscowPage = new ZkyMoscowPage(driver);
         zkyMoscowPage.chooseTab("ОПЛАТИТЬ ЖКУ В МОСКВЕ");
-
         zkyMoscowPage.clickButton("Оплатить ЖКУ в Москве");
 
         Assert.assertEquals("Поле обязательное",
@@ -70,7 +69,7 @@ public class TestCase extends BaseTest {
 
         zkyMoscowPage.fieldSum.sendKeys( TAB);
 
-        zkyMoscowPage.payments.click();
+        zkyMoscowPage.chooseProductMenuItem("Платежи");
 
        // paymentsPage.fieldForInput.sendKeys(zkyName);
 

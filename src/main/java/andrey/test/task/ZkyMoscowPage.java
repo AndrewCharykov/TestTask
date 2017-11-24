@@ -22,16 +22,20 @@ public class ZkyMoscowPage {
      * Вебдрайвер.
      */
     private WebDriver driver;
+
+    @FindBy(xpath = "//span[@data-qa-file='HeaderMenuItem']")
+    private List<WebElement> productMenuItem;
+
     /**
-     * Элемент опталить жку в Москве.
+     * Метод для выбора продукта в головном меню
+     * @param menuName Передаем название вкладки
      */
-    @FindBy(xpath = "//span[text()='Оплатить ЖКУ в Москве']" )
-    public WebElement payZkyInMoscow;
-    /**
-     *  Элемент Платежи.
-     */
-    @FindBy(xpath = "//span[text()='Платежи'][@class='HeaderMenuItem__itemContainer_3Qu__']" )
-    public WebElement payments;
+    public void chooseProductMenuItem(final String menuName){
+        Optional<WebElement> first = productMenuItem.stream()
+                .filter(WebElement -> WebElement.getText().trim().equalsIgnoreCase(menuName)).findFirst();
+        first.ifPresent(WebElement::click);
+        first.orElseThrow(() -> new NoSuchElementException("Не могу найти данный пункт меню"));
+    }
     /**
      * Элемент кнопки.
      */
