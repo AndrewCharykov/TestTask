@@ -10,6 +10,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 /**
  * Страница платежей.
@@ -20,10 +22,20 @@ public class PaymentsPage  {
      */
     private WebDriver driver;
     /**
-     * Элемент "Коммунальные платежи".
+     * Лист с услугами провайдера
      */
-    @FindBy(xpath = "//span[text()='Коммунальные платежи']" )
-    public WebElement communalPayments;
+    @FindBy(xpath = "//li[@data-qa-file='UIMenuItemProvider']")
+    private List<WebElement> menuItemProvider;
+    /**
+     * Метод, для выбора услуги
+     * @param serviceProvider Передаем услугу
+     */
+    public void chooseMenuItemProvider(String serviceProvider){
+        Optional<WebElement> first = menuItemProvider.stream()
+                .filter(WebElement -> WebElement.getText().trim().equalsIgnoreCase(serviceProvider)).findFirst();
+        first.ifPresent(WebElement::click);
+        first.orElseThrow(() -> new NoSuchElementException("Не могу найти данную услугу"));
+    }
     /**
      * Элемент Поле для ввода.
      */
@@ -32,12 +44,12 @@ public class PaymentsPage  {
     /**
      * Элемент Первый элемент из дропдайна.
      */
-    @FindBy(css = "._2vlxq" )
+    @FindBy(xpath ="(//div[@data-qa-file='GridColumn'])[1]" )
     public WebElement firstElementInDropdown;
     /**
      * Элемент Первый элемент из дропдайна.
      */
-    @FindBy(xpath = "//div[@class='_10JW0']" )
+    @FindBy(xpath = "//div[@class='SearchSuggest__entryText_10JW0']" )
     public List<WebElement> dropElements;
 
     /**

@@ -5,6 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static org.openqa.selenium.Keys.ENTER;
+import static org.openqa.selenium.Keys.TAB;
+
 
 /**
  * Первый тест.
@@ -17,25 +20,27 @@ public class TestCase extends BaseTest {
     @Test
     public void tinkoffPage() throws InterruptedException {
         WebDriver driver = getDriver();
+
         HomePage homePage = new HomePage(driver);
         homePage.homePageOpen();
-
-        homePage.payments.click();
+        homePage.chooseProductMenuItem("Платежи");
 
         PaymentsPage paymentsPage = new PaymentsPage(driver);
-        paymentsPage.communalPayments.click();
+        paymentsPage.chooseMenuItemProvider("Коммунальные платежи");
 
         CommunalPaymentsPage communalPaymentsPage = new CommunalPaymentsPage(driver);
-        communalPaymentsPage.communalPaymentsInCity("Москве",
-                communalPaymentsPage.moscowPayments);
+        if(!communalPaymentsPage.isCurrentRegion("Москве")){
+            communalPaymentsPage.openRegionList();
+            communalPaymentsPage.chooseRegion("г. Москва");
+        }
 
-        String zkyName = communalPaymentsPage.zkyMoscow.getText();
-        communalPaymentsPage.zkyMoscow.click();
+        String firstService = communalPaymentsPage.firstServiceName();
+        communalPaymentsPage.chooseServiceProvider("ЖКУ-Москва");
 
         ZkyMoscowPage zkyMoscowPage = new ZkyMoscowPage(driver);
-        zkyMoscowPage.payZkyInMoscow.click();
+        zkyMoscowPage.chooseTab("ОПЛАТИТЬ ЖКУ В МОСКВЕ");
 
-        zkyMoscowPage.buttonPayZkyInMoscow.click();
+        zkyMoscowPage.clickButton("Оплатить ЖКУ в Москве");
 
         Assert.assertEquals("Поле обязательное",
                 zkyMoscowPage.errorMessageCodePayment.getText());
@@ -46,10 +51,10 @@ public class TestCase extends BaseTest {
         Assert.assertEquals("Поле обязательное",
                 zkyMoscowPage.errorMessageSum.getText());
 
-        zkyMoscowPage.fieldPayerCode.sendKeys( "1");
-        zkyMoscowPage.fieldProviderPeriod.sendKeys( "1");
-        zkyMoscowPage.fieldSum.sendKeys( "1");
-        zkyMoscowPage.fieldSum.sendKeys( Keys.TAB);
+        zkyMoscowPage.writeTextInField("Код плательщика за ЖКУ в Москве", "1");
+        zkyMoscowPage.writeTextInField("За какой период оплачиваете коммунальные услуги","1");
+        zkyMoscowPage.writeTextInField("Сумма платежа, от 10 до 15 000 \u20BD", "1", TAB);
+
 
         Assert.assertEquals("Поле неправильно заполнено",
                 zkyMoscowPage.errorMessageCodePayment.getText());
@@ -63,23 +68,24 @@ public class TestCase extends BaseTest {
         Assert.assertEquals("Максимальная сумма перевода - 15 000 \u20BD",
                zkyMoscowPage.errorMessageSum.getText());
 
-        zkyMoscowPage.fieldSum.sendKeys( Keys.TAB);
+        zkyMoscowPage.fieldSum.sendKeys( TAB);
 
         zkyMoscowPage.payments.click();
 
-        paymentsPage.fieldForInput.sendKeys(zkyName);
+       // paymentsPage.fieldForInput.sendKeys(zkyName);
 
 
         paymentsPage.compareDropdown("ЖКУ-Москва");
 
         paymentsPage.firstElementInDropdown.click();
 
-        homePage.payments.click();
-        paymentsPage.communalPayments.click();
+        homePage.chooseProductMenuItem("Платежи");
+        paymentsPage.chooseMenuItemProvider("Коммунальные платежи");
 
-        communalPaymentsPage.communalPaymentsInCity("Санкт-Петербурге", communalPaymentsPage.spbPayments);
+        communalPaymentsPage.openRegionList();
+        communalPaymentsPage.chooseRegion("г. Санкт-Петербург");
 
-        paymentsPage.fieldForInput.sendKeys(zkyName);
+     //   paymentsPage.fieldForInput.sendKeys(zkyName);
         paymentsPage.notIncluderInTheList();
     }
 
